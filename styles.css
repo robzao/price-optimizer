@@ -55,7 +55,7 @@ input:focus {
   box-shadow: 0 0 0 2px rgba(0, 63, 255, 0.5); 
 }
 
-.result-group {
+.output-group {
   border-bottom: 1px solid gainsboro;
   display: flex;
   justify-content: space-between;

@@ -35,25 +35,19 @@ const calculate = (
   const totalCost = productCost + shippingCost + marketingCost + otherCosts;
   const totalFeeRate = platformFeeRate + paymentFeeRate + otherFeeRate + taxRate;
   const revenueFraction = 1 - totalFeeRate;
-
   if (revenueFraction <= 0) {
     return { suggestedPrice: 0, discountedPrice: 0, netProfit: 0, netMargin: 0 };
   }
   const desiredRevenue = totalCost * (1 + profitMarginRate);
   const suggestedPrice = desiredRevenue / revenueFraction;
-  
   const discountedPrice = suggestedPrice * (1 - discountRate);
-
   const platformFee = discountedPrice * platformFeeRate;
   const paymentFee = discountedPrice * paymentFeeRate;
   const otherFee = discountedPrice * otherFeeRate;
   const tax = discountedPrice * taxRate;
-  
   const totalExpenses = totalCost + platformFee + paymentFee + otherFee + tax;
   const netProfit = discountedPrice - totalExpenses;
-  
   const netMargin = (discountedPrice === 0) ? 0 : (netProfit / discountedPrice) * 100;
-
   return { suggestedPrice, discountedPrice, netProfit, netMargin };
 };
 
@@ -70,7 +64,6 @@ const handleCalculation = () => {
     input.value = sanitized;
     return parseValue(sanitized);
   };
-  
   const productCost = sanitizeAndParse(productCostInput);
   const shippingCost = sanitizeAndParse(shippingCostInput);
   const marketingCost = sanitizeAndParse(marketingCostInput);
@@ -81,13 +74,11 @@ const handleCalculation = () => {
   const taxRate = sanitizeAndParse(taxRateInput) / 100;
   const profitMarginRate = sanitizeAndParse(profitMarginInput) / 100;
   const discountRate = sanitizeAndParse(discountRateInput) / 100;
-
   const result = calculate(
     productCost, shippingCost, marketingCost, otherCosts,
     platformFeeRate, paymentFeeRate, otherFeeRate, taxRate,
     profitMarginRate, discountRate
   );
-
   updateDisplay(result);
 };
 
