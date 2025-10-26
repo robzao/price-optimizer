@@ -45,13 +45,14 @@ input {
   border: 1px solid gainsboro;
   display: block;
   padding: 0.5rem;
+  transition: 250ms all linear;
   width: 100%;
 }
 
 input:focus {
   outline: none; 
   border-color: silver; 
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.125); 
+  box-shadow: 0 0 0 2px rgba(0, 63, 255, 0.5); 
 }
 
 .result-group {
