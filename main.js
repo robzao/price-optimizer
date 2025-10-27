@@ -1,17 +1,18 @@
-const productCostInput = document.getElementById('product-cost');
-const shippingCostInput = document.getElementById('shipping-cost');
-const marketingCostInput = document.getElementById('marketing-cost');
-const otherCostsInput = document.getElementById('other-costs');
-const platformFeeRateInput = document.getElementById('platform-fee-rate');
-const paymentFeeRateInput = document.getElementById('payment-fee-rate');
-const otherFeeRateInput = document.getElementById('other-fee-rate');
-const taxRateInput = document.getElementById('tax-rate');
-const profitMarginInput = document.getElementById('profit-margin');
-const discountRateInput = document.getElementById('discount-rate');
+const productCost = document.getElementById('product-cost');
+const shippingCost = document.getElementById('shipping-cost');
+const marketingCost = document.getElementById('marketing-cost');
+const otherCosts = document.getElementById('other-costs');
+const platformFeeRate = document.getElementById('platform-fee-rate');
+const paymentFeeRate = document.getElementById('payment-fee-rate');
+const otherFeeRate = document.getElementById('other-fee-rate');
+const taxRate = document.getElementById('tax-rate');
+const profitMargin = document.getElementById('profit-margin');
+const discountRate = document.getElementById('discount-rate');
 const suggestedPriceDisplay = document.getElementById('suggested-price');
 const discountedPriceDisplay = document.getElementById('discounted-price');
 const netProfitDisplay = document.getElementById('net-profit');
 const netMarginDisplay = document.getElementById('net-margin');
+const resetButton = document.getElementById('reset');
 
 const formatCurrency = (value) => `$ ${value.toFixed(2)}`;
 const formatPercentage = (value) => `${value.toFixed(2)}%`;
@@ -27,22 +28,18 @@ const parseValue = (sanitizedValue) => {
   return isNaN(numericValue) ? 0 : numericValue;
 };
 
-const calculate = (
-  productCost, shippingCost, marketingCost, otherCosts,
-  platformFeeRate, paymentFeeRate, otherFeeRate, taxRate,
-  profitMarginRate, discountRate
-) => {
-  const totalCost = productCost + shippingCost + marketingCost + otherCosts;
-  const totalFeeRate = platformFeeRate + paymentFeeRate + otherFeeRate + taxRate;
+const calculate = (pc, sc, mc, oc, pfr, pyfr, ofr, tr, pmr, dr) => {
+  const totalCost = pc + sc + mc + oc;
+  const totalFeeRate = pfr + pyfr + ofr + tr;
   const revenueFraction = 1 - totalFeeRate;
   if (revenueFraction <= 0) return { suggestedPrice: 0, discountedPrice: 0, netProfit: 0, netMargin: 0 };
-  const desiredRevenue = totalCost * (1 + profitMarginRate);
+  const desiredRevenue = totalCost * (1 + pmr);
   const suggestedPrice = desiredRevenue / revenueFraction;
-  const discountedPrice = suggestedPrice * (1 - discountRate);
-  const platformFee = discountedPrice * platformFeeRate;
-  const paymentFee = discountedPrice * paymentFeeRate;
-  const otherFee = discountedPrice * otherFeeRate;
-  const tax = discountedPrice * taxRate;
+  const discountedPrice = suggestedPrice * (1 - dr);
+  const platformFee = discountedPrice * pfr;
+  const paymentFee = discountedPrice * pyfr;
+  const otherFee = discountedPrice * ofr;
+  const tax = discountedPrice * tr;
   const totalExpenses = totalCost + platformFee + paymentFee + otherFee + tax;
   const netProfit = discountedPrice - totalExpenses;
   const netMargin = (discountedPrice === 0) ? 0 : (netProfit / discountedPrice) * 100;
@@ -56,33 +53,44 @@ const updateDisplay = (result) => {
   netMarginDisplay.textContent = formatPercentage(result.netMargin);
 };
 
+const clearAll = () => {
+  productCost.value = '';
+  shippingCost.value = '';
+  marketingCost.value = '';
+  otherCosts.value = '';
+  platformFeeRate.value = '';
+  paymentFeeRate.value = '';
+  otherFeeRate.value = '';
+  taxRate.value = '';
+  profitMargin.value = '';
+  discountRate.value = '';
+  handleCalculation();
+};
+
 const handleCalculation = () => {
   const sanitizeAndParse = (input) => {
     const sanitized = sanitizeInput(input.value);
     input.value = sanitized;
     return parseValue(sanitized);
   };
-  const productCost = sanitizeAndParse(productCostInput);
-  const shippingCost = sanitizeAndParse(shippingCostInput);
-  const marketingCost = sanitizeAndParse(marketingCostInput);
-  const otherCosts = sanitizeAndParse(otherCostsInput);
-  const platformFeeRate = sanitizeAndParse(platformFeeRateInput) / 100;
-  const paymentFeeRate = sanitizeAndParse(paymentFeeRateInput) / 100;
-  const otherFeeRate = sanitizeAndParse(otherFeeRateInput) / 100;
-  const taxRate = sanitizeAndParse(taxRateInput) / 100;
-  const profitMarginRate = sanitizeAndParse(profitMarginInput) / 100;
-  const discountRate = sanitizeAndParse(discountRateInput) / 100;
-  const result = calculate(
-    productCost, shippingCost, marketingCost, otherCosts,
-    platformFeeRate, paymentFeeRate, otherFeeRate, taxRate,
-    profitMarginRate, discountRate
-  );
+  const pc = sanitizeAndParse(productCost);
+  const sc = sanitizeAndParse(shippingCost);
+  const mc = sanitizeAndParse(marketingCost);
+  const oc = sanitizeAndParse(otherCosts);
+  const pfr = sanitizeAndParse(platformFeeRate) / 100;
+  const pyfr = sanitizeAndParse(paymentFeeRate) / 100;
+  const ofr = sanitizeAndParse(otherFeeRate) / 100;
+  const tr = sanitizeAndParse(taxRate) / 100;
+  const pmr = sanitizeAndParse(profitMargin) / 100;
+  const dr = sanitizeAndParse(discountRate) / 100;
+  const result = calculate(pc, sc, mc, oc, pfr, pyfr, ofr, tr, pmr, dr);
   updateDisplay(result);
 };
 
 const setupEventListeners = () => {
   const inputs = document.querySelectorAll('.input-group input');
   inputs.forEach(input => { input.addEventListener('input', handleCalculation) });
+  resetButton.addEventListener('click', clearAll);
 };
 
 const init = () => {

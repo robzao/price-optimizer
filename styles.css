@@ -7,7 +7,7 @@
 *,
 ::before,
 ::after {
-  background-color: inherit;
+  background-color: transparent;
   border-width: 0;
   box-sizing: border-box;
   font-size: inherit;
@@ -60,6 +60,26 @@ input:focus {
   outline: none; 
   border-color: dodgerblue; 
   filter: drop-shadow(0 0 2px royalblue);
+}
+
+button {
+  background-color: dodgerblue;
+  border-radius: 0.25rem;
+  border: 1px solid dodgerblue;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  transition: 250ms all linear;
+  width: 100%;
+}
+
+button:hover {
+  background-color: royalblue;
+  border-color: royalblue;
 }
 
 .output-group {
