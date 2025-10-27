@@ -41,6 +41,7 @@ label {
 }
 
 input {
+  background-color: white;
   border-radius: 0.25rem;
   border: 1px solid gainsboro;
   display: block;
@@ -51,8 +52,8 @@ input {
 
 input:focus {
   outline: none; 
-  border-color: silver; 
-  box-shadow: 0 0 0 2px rgba(0, 63, 255, 0.5); 
+  border-color: dodgerblue; 
+  filter: drop-shadow(0 0 2px royalblue);
 }
 
 .output-group {

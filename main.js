@@ -35,9 +35,7 @@ const calculate = (
   const totalCost = productCost + shippingCost + marketingCost + otherCosts;
   const totalFeeRate = platformFeeRate + paymentFeeRate + otherFeeRate + taxRate;
   const revenueFraction = 1 - totalFeeRate;
-  if (revenueFraction <= 0) {
-    return { suggestedPrice: 0, discountedPrice: 0, netProfit: 0, netMargin: 0 };
-  }
+  if (revenueFraction <= 0) return { suggestedPrice: 0, discountedPrice: 0, netProfit: 0, netMargin: 0 };
   const desiredRevenue = totalCost * (1 + profitMarginRate);
   const suggestedPrice = desiredRevenue / revenueFraction;
   const discountedPrice = suggestedPrice * (1 - discountRate);
@@ -83,10 +81,8 @@ const handleCalculation = () => {
 };
 
 const setupEventListeners = () => {
-  const inputs = document.querySelectorAll('.input-group input'); 
-  inputs.forEach(input => {
-    input.addEventListener('input', handleCalculation);
-  });
+  const inputs = document.querySelectorAll('.input-group input');
+  inputs.forEach(input => { input.addEventListener('input', handleCalculation) });
 };
 
 const init = () => {
