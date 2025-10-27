@@ -10,18 +10,18 @@ The calculation process in the Price Optimizer is based on **inverting the fee c
 
 ### Input Fields
 
-| Field | Description |
-| :--- | :--- |
-| **Product Cost ($)** | The cost paid for the product itself (COGS). |
-| **Shipping Cost ($)** | The cost to ship the product to the customer. |
-| **Marketing Cost ($)** | The customer acquisition cost (CAC) per unit sold. |
-| **Other Costs ($)** | Any additional fixed costs per unit (e.g., warehousing). |
-| **Platform Fee (%)** | Rate charged by the marketplace or platform (e.g., Shopify, Amazon). |
-| **Payment Fee (%)** | Rate charged by the payment processor (e.g., PayPal, Stripe). |
-| **Other Fees (%)** | Any remaining fee rate applied to the sale price. |
-| **Sales Tax (%)** | Tax rate applied to the sale price. |
-| **Target Profit Margin (%)** | The desired margin rate on the price **before** all fees are deducted. |
-| **Promotional Discount (%)** | The planned discount rate applied to the Suggested Price. |
+| Field | Restriction | Description |
+| :--- | :--- | :--- |
+| **Product Cost ($)** | Number >= 0 | The cost paid for the product itself (COGS). |
+| **Shipping Cost ($)** | Number >= 0 | The cost to ship the product to the customer. |
+| **Marketing Cost ($)** | Number >= 0 | The customer acquisition cost (CAC) per unit sold. |
+| **Other Costs ($)** | Number >= 0 | Any additional fixed costs per unit (e.g., warehousing). |
+| **Platform Fee (%)** | Number >= 0 | Rate charged by the marketplace or platform (e.g., Shopify, Amazon). |
+| **Payment Fee (%)** | Number >= 0 | Rate charged by the payment processor (e.g., PayPal, Stripe). |
+| **Other Fees (%)** | Number >= 0 | Any remaining fee rate applied to the sale price. |
+| **Sales Tax (%)** | Number >= 0 | Tax rate applied to the sale price. |
+| **Target Profit Margin (%)** | Number >= 0 | The desired margin rate on the price **before** all fees are deducted. |
+| **Promotional Discount (%)** | Number >= 0 | The planned discount rate applied to the Suggested Price. |
 
 ---
 
